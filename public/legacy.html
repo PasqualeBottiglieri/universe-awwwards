@@ -1,0 +1,648 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="WebMaster" />
+<meta name="keywords" content="cosmo, pianeti, spazio, sistema solare, astronomia" />
+<title>.:*~ThE CoSmOs~*:. - Il Portale dello Spazio!! - Ultimo aggiornamento 14/03/2008</title>
+<style type="text/css">
+/* ===== 2008 GEOCITIES-STYLE CSS ===== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Comic Sans MS', 'Trebuchet MS', Verdana, Arial, sans-serif;
+  font-size: 11px;
+  color: #00ff00;
+  background-color: #000022;
+  background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='200' height='200' fill='%23000020'/%3E%3Ccircle cx='15' cy='30' r='1' fill='white' opacity='.6'/%3E%3Ccircle cx='80' cy='10' r='.5' fill='white' opacity='.4'/%3E%3Ccircle cx='150' cy='45' r='1.2' fill='white' opacity='.7'/%3E%3Ccircle cx='45' cy='90' r='.7' fill='white' opacity='.5'/%3E%3Ccircle cx='120' cy='75' r='1' fill='white' opacity='.3'/%3E%3Ccircle cx='180' cy='120' r='.6' fill='white' opacity='.6'/%3E%3Ccircle cx='30' cy='150' r='1.1' fill='white' opacity='.5'/%3E%3Ccircle cx='100' cy='130' r='.4' fill='white' opacity='.7'/%3E%3Ccircle cx='170' cy='170' r='.8' fill='white' opacity='.4'/%3E%3Ccircle cx='60' cy='180' r='1' fill='white' opacity='.6'/%3E%3Ccircle cx='140' cy='195' r='.5' fill='white' opacity='.5'/%3E%3Ccircle cx='10' cy='65' r='.3' fill='%23aaf' opacity='.6'/%3E%3Ccircle cx='190' cy='85' r='.4' fill='%23ffa' opacity='.5'/%3E%3C/svg%3E");
+  cursor: crosshair;
+}
+a:link { color: #00ccff; text-decoration: underline; }
+a:visited { color: #cc66ff; text-decoration: underline; }
+a:hover { color: #ffff00; text-decoration: none; background-color: #000066; }
+a:active { color: #ff0000; }
+
+/* Blink animation (the 2008 classic) */
+@keyframes blink { 0%,49%{opacity:1}50%,100%{opacity:0} }
+.blink { animation: blink 1s step-end infinite; }
+
+/* Marquee style */
+.marquee-bar {
+  background: linear-gradient(90deg, #000066, #000099, #000066);
+  border-top: 2px solid #3333ff;
+  border-bottom: 2px solid #3333ff;
+  padding: 4px 0;
+  color: #ffff00;
+  font-size: 12px;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-bar .inner {
+  display: inline-block;
+  animation: scroll-left 18s linear infinite;
+}
+@keyframes scroll-left {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Main table layout */
+.main-table {
+  width: 780px;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+.header-cell {
+  background: linear-gradient(180deg, #000044, #000011);
+  border: 2px ridge #3333ff;
+  padding: 10px;
+  text-align: center;
+}
+.sidebar {
+  width: 170px;
+  background: linear-gradient(180deg, #0a0a2e, #050520);
+  border: 2px ridge #3333ff;
+  padding: 8px;
+  vertical-align: top;
+  font-size: 10px;
+}
+.content {
+  background: linear-gradient(180deg, #0a0a1a, #050515);
+  border: 2px ridge #3333ff;
+  padding: 12px;
+  vertical-align: top;
+}
+.footer-cell {
+  background: #000033;
+  border: 2px ridge #3333ff;
+  padding: 8px;
+  text-align: center;
+  font-size: 9px;
+  color: #666699;
+}
+
+/* WordArt-style title */
+.wordart {
+  font-family: 'Papyrus', 'Comic Sans MS', fantasy;
+  font-size: 42px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  background: linear-gradient(180deg, #ffff00, #ff6600, #ff0000, #ff00ff, #6600ff, #00ccff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px #ff00ff) drop-shadow(2px 2px 0 #000);
+  text-transform: uppercase;
+}
+.wordart-sub {
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 14px;
+  color: #ff66ff;
+  letter-spacing: 5px;
+}
+
+/* Sidebar nav links */
+.nav-link {
+  display: block;
+  padding: 5px 8px;
+  margin: 3px 0;
+  background: linear-gradient(90deg, #000066, #000044);
+  border: 1px solid #3333cc;
+  color: #00ccff !important;
+  text-decoration: none !important;
+  font-size: 11px;
+  font-weight: bold;
+}
+.nav-link:hover {
+  background: linear-gradient(90deg, #000099, #000066) !important;
+  color: #ffff00 !important;
+  border-color: #ffff00;
+}
+
+/* Planet boxes */
+.planet-box {
+  border: 2px ridge #6666cc;
+  background: linear-gradient(135deg, rgba(0,0,50,0.8), rgba(0,0,20,0.9));
+  margin: 10px 0;
+  padding: 0;
+}
+.planet-box .title-bar {
+  background: linear-gradient(90deg, #000066, #330066, #000066);
+  padding: 4px 8px;
+  font-weight: bold;
+  color: #ffff00;
+  font-size: 13px;
+  border-bottom: 1px solid #6666cc;
+  letter-spacing: 2px;
+}
+.planet-box .body {
+  padding: 8px;
+}
+.planet-box table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10px;
+}
+.planet-box td {
+  padding: 3px 6px;
+  border: 1px dotted #333366;
+}
+.planet-box .label { color: #9999cc; text-transform: uppercase; width: 120px; }
+.planet-box .val { color: #00ff66; font-family: 'Courier New', monospace; font-weight: bold; }
+
+/* Star separator */
+.star-sep {
+  text-align: center;
+  color: #ffff00;
+  font-size: 8px;
+  letter-spacing: 12px;
+  padding: 6px 0;
+}
+
+/* Guestbook & counter */
+.counter-box {
+  display: inline-block;
+  background: #000;
+  border: 2px inset #333;
+  padding: 2px 8px;
+  font-family: 'Courier New', monospace;
+  color: #00ff00;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+/* Under construction gif simulation */
+.under-construction {
+  display: inline-block;
+  background: repeating-linear-gradient(45deg, #ffcc00, #ffcc00 10px, #000 10px, #000 20px);
+  padding: 4px 12px;
+  color: #000;
+  font-weight: bold;
+  font-size: 10px;
+  border: 2px solid #ffcc00;
+  animation: uc-flash 0.8s ease infinite;
+}
+@keyframes uc-flash { 0%,100%{opacity:1}50%{opacity:0.7} }
+
+/* Animated star twinkle */
+.twinkle { animation: twinkle 1.5s ease-in-out infinite alternate; display: inline-block; }
+.twinkle:nth-child(2) { animation-delay: 0.3s; }
+.twinkle:nth-child(3) { animation-delay: 0.7s; }
+@keyframes twinkle { 0%{opacity:0.3;transform:scale(0.8)}100%{opacity:1;transform:scale(1.2)} }
+
+/* Image styles 2008 */
+.img-2008 {
+  border: 3px ridge #6666cc;
+  padding: 2px;
+  background: #111;
+  display: block;
+  margin: 6px auto;
+}
+
+/* Scrollbox */
+.scrollbox {
+  height: 100px;
+  overflow-y: scroll;
+  border: 2px inset #333366;
+  background: #000011;
+  padding: 6px;
+  font-size: 10px;
+  color: #99ccff;
+  scrollbar-color: #3333cc #000033;
+}
+
+/* Status bar */
+.status-bar {
+  background: linear-gradient(180deg, #ccccdd, #8888aa);
+  padding: 2px 8px;
+  font-size: 9px;
+  color: #000;
+  font-family: 'Tahoma', 'Verdana', sans-serif;
+  border-top: 1px solid #fff;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* Sparkle cursor trail */
+.sparkle {
+  position: fixed;
+  pointer-events: none;
+  font-size: 12px;
+  z-index: 9999;
+  animation: sparkle-fade 0.8s forwards;
+}
+@keyframes sparkle-fade {
+  0% { opacity:1; transform:scale(1) translateY(0); }
+  100% { opacity:0; transform:scale(0.3) translateY(-20px); }
+}
+
+/* Horizontal rule 2008 style */
+hr.fancy {
+  border: none;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #3333ff, #ff00ff, #3333ff, transparent);
+}
+
+/* Glow text */
+.glow { text-shadow: 0 0 6px #00ccff, 0 0 12px #0066ff; }
+
+/* "NEW!" badge */
+.new-badge {
+  display: inline-block;
+  background: #ff0000;
+  color: #fff;
+  font-size: 8px;
+  font-weight: bold;
+  padding: 1px 4px;
+  border-radius: 2px;
+  animation: blink 0.7s step-end infinite;
+  vertical-align: super;
+  margin-left: 3px;
+}
+</style>
+</head>
+<body>
+
+<!-- ===== TOP MARQUEE ===== -->
+<div class="marquee-bar">
+  <div class="inner">
+    &#9733; BENVENUTI NEL PORTALE DELLO SPAZIO!! &#9733; Scopri tutti i segreti dell'universo!! &#9733; NUOVO: Sezione Saturno con ANELLI!! &#9733; Manda un msg nel GUESTBOOK &#9733; Sito ottimizzato per Internet Explorer 6 a 1024x768 &#9733; WebMaster: CosmicBoy2008 &#9733;
+  </div>
+</div>
+
+<!-- ===== MAIN TABLE LAYOUT ===== -->
+<table class="main-table" cellpadding="0" cellspacing="0">
+
+<!-- HEADER -->
+<tr>
+  <td colspan="2" class="header-cell">
+    <!-- Animated stars -->
+    <span class="twinkle" style="color:#ffff00;font-size:18px">&#10022;</span>
+    <span class="twinkle" style="color:#ff66ff;font-size:14px">&#10022;</span>
+    <span class="twinkle" style="color:#00ccff;font-size:16px">&#10022;</span>
+    <br />
+    <span class="wordart">.:*~ ThE CoSmOs ~*:.</span>
+    <br />
+    <span class="wordart-sub">~ * ~ Il Portale dello Spazio ~ * ~</span>
+    <br /><br />
+    <span style="font-size:10px;color:#6699cc">
+      &#171; Un viaggio tra pianeti, misteri cosmici e scienza!! &#187;
+    </span>
+    <br />
+    <span class="twinkle" style="color:#00ccff;font-size:16px">&#10022;</span>
+    <span class="twinkle" style="color:#ffff00;font-size:14px">&#10022;</span>
+    <span class="twinkle" style="color:#ff66ff;font-size:18px">&#10022;</span>
+  </td>
+</tr>
+
+<tr>
+<!-- ===== SIDEBAR ===== -->
+<td class="sidebar">
+  <center>
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='30' fill='%23003' stroke='%2300ccff' stroke-width='2'/%3E%3Ccircle cx='40' cy='40' r='6' fill='%23ff0' opacity='.9'/%3E%3Cellipse cx='40' cy='40' rx='25' ry='6' fill='none' stroke='%23ff66ff' stroke-width='1.5' transform='rotate(-20 40 40)'/%3E%3Cellipse cx='40' cy='40' rx='35' ry='4' fill='none' stroke='%2300cc66' stroke-width='1' transform='rotate(10 40 40)' opacity='.6'/%3E%3C/svg%3E" alt="logo spazio" class="img-2008" style="border-color:#ff66ff" />
+    <br />
+    <b style="color:#ffff00;font-size:12px">MENU</b>
+  </center>
+  <hr class="fancy" />
+  <a href="#home" class="nav-link">&#9658; Home Page</a>
+  <a href="#mercurio" class="nav-link">&#9658; Mercurio</a>
+  <a href="#venere" class="nav-link">&#9658; Venere</a>
+  <a href="#terra" class="nav-link">&#9658; Terra <span class="new-badge">NEW!</span></a>
+  <a href="#marte" class="nav-link">&#9658; Marte</a>
+  <a href="#giove" class="nav-link">&#9658; Giove</a>
+  <a href="#saturno" class="nav-link">&#9658; Saturno <span class="new-badge">NEW!</span></a>
+  <a href="#urano" class="nav-link">&#9658; Urano</a>
+  <a href="#nettuno" class="nav-link">&#9658; Nettuno</a>
+  <hr class="fancy" />
+  <a href="#" class="nav-link">&#9658; Guestbook</a>
+  <a href="#" class="nav-link">&#9658; Forum</a>
+  <a href="#" class="nav-link">&#9658; Links Amici</a>
+  <a href="mailto:cosmicboy@libero.it" class="nav-link">&#9658; Email WebMaster</a>
+
+  <hr class="fancy" />
+  <center>
+    <br />
+    <span style="color:#9999cc;font-size:9px">Sei il visitatore N&deg;</span><br />
+    <span class="counter-box">004.831</span>
+    <br /><br />
+    <span class="under-construction">&#9888; UNDER CONSTRUCTION &#9888;</span>
+    <br /><br />
+    <span style="font-size:8px;color:#666">
+      Best viewed with<br />
+      <b style="color:#00ccff">Internet Explorer 6</b><br />
+      1024 x 768<br /><br />
+      Made with<br />
+      <b style="color:#ff6600">Microsoft FrontPage</b>
+    </span>
+    <br /><br />
+    <!-- 88x31 button style badges -->
+    <span style="display:inline-block;border:1px solid #333;background:#000;padding:2px 6px;font-size:7px;color:#0f0;font-family:monospace;margin:2px">HTML 4.01</span>
+    <span style="display:inline-block;border:1px solid #333;background:#000;padding:2px 6px;font-size:7px;color:#09f;font-family:monospace;margin:2px">CSS 2.0</span>
+    <span style="display:inline-block;border:1px solid #333;background:#000;padding:2px 6px;font-size:7px;color:#f90;font-family:monospace;margin:2px">JavaScript</span>
+    <br /><br />
+    <span style="font-size:8px;color:#666699">
+      Ultimo aggiornamento:<br />
+      <b style="color:#99ccff">14/03/2008</b>
+    </span>
+  </center>
+</td>
+
+<!-- ===== MAIN CONTENT ===== -->
+<td class="content">
+
+  <!-- Welcome -->
+  <center>
+    <span style="font-size:16px;color:#ffff00;font-family:'Comic Sans MS',cursive">
+      <b class="glow">&#9733; Benvenuto nel mio sito sullo SPAZIO!! &#9733;</b>
+    </span>
+  </center>
+  <br />
+  <span style="color:#99ccff">
+    Ciao a tutti!! <span class="blink" style="color:#ff0">:-)</span> Questo sito &egrave; dedicato al <b style="color:#fff">Sistema Solare</b> e a tutti i suoi pianeti!!
+    Ho creato questo sito perch&eacute; lo spazio mi affascina tantissimo e voglio condividere con voi tutte le info che ho trovato su Internet!!
+    <b style="color:#ff66ff">Buona navigazione!!</b> E non dimenticate di firmare il <a href="#">GUESTBOOK</a>!! <span class="blink" style="color:#ff0">:-D</span>
+  </span>
+
+  <hr class="fancy" />
+  <div class="star-sep">&#10022; &#10022; &#10022; &#10022; &#10022; &#10022; &#10022;</div>
+
+  <!-- ===== MERCURIO ===== -->
+  <a name="mercurio"></a>
+  <div class="planet-box">
+    <div class="title-bar">&#9788; MERCURIO - Il Pianeta Pi&ugrave; Vicino al Sole</div>
+    <div class="body">
+      <table>
+      <tr><td>
+        <!-- Planet image as inline SVG -->
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cdefs%3E%3CradialGradient id='m' cx='.35' cy='.35'%3E%3Cstop offset='0' stop-color='%23888'/%3E%3Cstop offset='1' stop-color='%23333'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='40' fill='url(%23m)'/%3E%3Ccircle cx='35' cy='35' r='6' fill='%23555' opacity='.5'/%3E%3Ccircle cx='55' cy='45' r='4' fill='%23444' opacity='.4'/%3E%3Ccircle cx='42' cy='60' r='7' fill='%23555' opacity='.3'/%3E%3Ccircle cx='62' cy='58' r='3' fill='%23444' opacity='.5'/%3E%3C/svg%3E" alt="Mercurio" class="img-2008" style="float:left;margin-right:8px" />
+      </td><td>
+        <span style="color:#cccccc">Il messaggero degli dei, il pianeta pi&ugrave; vicino al Sole e il pi&ugrave; piccolo del sistema solare. Pieno di crateri!!</span>
+        <br /><br />
+        <table>
+          <tr><td class="label">Diametro:</td><td class="val">4.879 km</td></tr>
+          <tr><td class="label">Distanza dal Sole:</td><td class="val">57,9M km</td></tr>
+          <tr><td class="label">Temperatura:</td><td class="val">167&deg;C</td></tr>
+          <tr><td class="label">Lune:</td><td class="val">0</td></tr>
+        </table>
+      </td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="star-sep">* . * . * . * . * . * . *</div>
+
+  <!-- ===== VENERE ===== -->
+  <a name="venere"></a>
+  <div class="planet-box">
+    <div class="title-bar">&#9788; VENERE - La Stella del Mattino</div>
+    <div class="body">
+      <table><tr><td>
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cdefs%3E%3CradialGradient id='v' cx='.35' cy='.35'%3E%3Cstop offset='0' stop-color='%23e8b030'/%3E%3Cstop offset='1' stop-color='%23a06010'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='42' fill='url(%23v)'/%3E%3Ccircle cx='50' cy='50' r='42' fill='%23c90' opacity='.15'/%3E%3C/svg%3E" alt="Venere" class="img-2008" style="float:right;margin-left:8px" />
+      </td><td>
+        <span style="color:#cccccc">La stella del mattino, avvolta in nubi di acido solforico. &Egrave; il pianeta pi&ugrave; caldo del sistema solare!! Pi&ugrave; caldo di Mercurio!!! <span class="blink" style="color:#ff6600">:-O</span></span>
+        <br /><br />
+        <table>
+          <tr><td class="label">Diametro:</td><td class="val">12.104 km</td></tr>
+          <tr><td class="label">Distanza dal Sole:</td><td class="val">108,2M km</td></tr>
+          <tr><td class="label">Temperatura:</td><td class="val" style="color:#ff3300">464&deg;C !!!</td></tr>
+          <tr><td class="label">Lune:</td><td class="val">0</td></tr>
+        </table>
+      </td></tr></table>
+    </div>
+  </div>
+
+  <div class="star-sep">&#10022; &#10022; &#10022; &#10022; &#10022; &#10022; &#10022;</div>
+
+  <!-- ===== TERRA ===== -->
+  <a name="terra"></a>
+  <div class="planet-box">
+    <div class="title-bar">&#9788; TERRA - La Nostra Casa!! <span class="new-badge">NEW!</span></div>
+    <div class="body">
+      <table><tr><td>
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cdefs%3E%3CradialGradient id='e' cx='.35' cy='.35'%3E%3Cstop offset='0' stop-color='%234488dd'/%3E%3Cstop offset='1' stop-color='%23104488'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='42' fill='url(%23e)'/%3E%3Cellipse cx='40' cy='38' rx='14' ry='10' fill='%23228833' opacity='.7'/%3E%3Cellipse cx='60' cy='55' rx='10' ry='16' fill='%23228833' opacity='.6'/%3E%3Cellipse cx='35' cy='62' rx='8' ry='5' fill='%23228833' opacity='.5'/%3E%3Ccircle cx='30' cy='30' r='12' fill='white' opacity='.2'/%3E%3Ccircle cx='65' cy='40' r='8' fill='white' opacity='.15'/%3E%3C/svg%3E" alt="Terra" class="img-2008" style="float:left;margin-right:8px" />
+      </td><td>
+        <span style="color:#cccccc">L'unico mondo conosciuto che ospita la vita. Un'oasi blu nel vuoto cosmico. <b style="color:#00ff00">Il nostro bellissimo pianeta!!</b> <span style="color:#ff0">:-)</span></span>
+        <br /><br />
+        <table>
+          <tr><td class="label">Diametro:</td><td class="val">12.742 km</td></tr>
+          <tr><td class="label">Distanza dal Sole:</td><td class="val">149,6M km</td></tr>
+          <tr><td class="label">Temperatura:</td><td class="val" style="color:#00ff99">15&deg;C (perfetta!!)</td></tr>
+          <tr><td class="label">Lune:</td><td class="val">1 (Luna &hearts;)</td></tr>
+        </table>
+      </td></tr></table>
+    </div>
+  </div>
+
+  <div class="star-sep">* . * . * . * . * . * . *</div>
+
+  <!-- ===== MARTE ===== -->
+  <a name="marte"></a>
+  <div class="planet-box">
+    <div class="title-bar">&#9788; MARTE - Il Pianeta Rosso</div>
+    <div class="body">
+      <table><tr><td>
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cdefs%3E%3CradialGradient id='ma' cx='.35' cy='.35'%3E%3Cstop offset='0' stop-color='%23cc5533'/%3E%3Cstop offset='1' stop-color='%23662211'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='36' fill='url(%23ma)'/%3E%3Ccircle cx='50' cy='30' r='8' fill='%23fff' opacity='.2'/%3E%3C/svg%3E" alt="Marte" class="img-2008" style="float:right;margin-left:8px" />
+      </td><td>
+        <span style="color:#cccccc">Il pianeta rosso, la prossima frontiera dell'esplorazione umana nello spazio. Forse un giorno ci andremo!! <span style="color:#f00">:-)</span></span>
+        <br /><br />
+        <table>
+          <tr><td class="label">Diametro:</td><td class="val">6.779 km</td></tr>
+          <tr><td class="label">Distanza dal Sole:</td><td class="val">227,9M km</td></tr>
+          <tr><td class="label">Temperatura:</td><td class="val">-65&deg;C brrr!!</td></tr>
+          <tr><td class="label">Lune:</td><td class="val">2</td></tr>
+        </table>
+      </td></tr></table>
+    </div>
+  </div>
+
+  <div class="star-sep">&#10022; &#10022; &#10022; &#10022; &#10022; &#10022; &#10022;</div>
+
+  <!-- ===== GIOVE ===== -->
+  <a name="giove"></a>
+  <div class="planet-box">
+    <div class="title-bar">&#9788; GIOVE - Il Gigante Gassoso!!</div>
+    <div class="body">
+      <table><tr><td>
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cdefs%3E%3CradialGradient id='j' cx='.4' cy='.35'%3E%3Cstop offset='0' stop-color='%23d4a050'/%3E%3Cstop offset='1' stop-color='%23886030'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='60' cy='60' r='52' fill='url(%23j)'/%3E%3Crect x='10' y='40' width='100' height='5' rx='2' fill='%23a06020' opacity='.4'/%3E%3Crect x='10' y='52' width='100' height='4' rx='2' fill='%23c08030' opacity='.3'/%3E%3Crect x='10' y='70' width='100' height='6' rx='2' fill='%23a06020' opacity='.35'/%3E%3Crect x='10' y='82' width='100' height='3' rx='2' fill='%23c08030' opacity='.25'/%3E%3Cellipse cx='70' cy='62' rx='10' ry='7' fill='%23cc3300' opacity='.6'/%3E%3C/svg%3E" alt="Giove" class="img-2008" style="float:left;margin-right:8px" />
+      </td><td>
+        <span style="color:#cccccc">Il gigante gassoso, pi&ugrave; massiccio di TUTTI gli altri pianeti messi insieme!! Ha la famosa <b style="color:#ff3300">Grande Macchia Rossa</b> che &egrave; una tempesta pi&ugrave; grande della Terra!!! <span class="blink" style="color:#ff0">WOW!!</span></span>
+        <br /><br />
+        <table>
+          <tr><td class="label">Diametro:</td><td class="val" style="color:#ffff00">139.820 km !!!</td></tr>
+          <tr><td class="label">Distanza dal Sole:</td><td class="val">778,5M km</td></tr>
+          <tr><td class="label">Temperatura:</td><td class="val">-110&deg;C</td></tr>
+          <tr><td class="label">Lune:</td><td class="val" style="color:#ffff00">95 (novantacinque!!!)</td></tr>
+        </table>
+      </td></tr></table>
+    </div>
+  </div>
+
+  <div class="star-sep">* . * . * . * . * . * . *</div>
+
+  <!-- ===== SATURNO ===== -->
+  <a name="saturno"></a>
+  <div class="planet-box">
+    <div class="title-bar">&#9788; SATURNO - Il Signore degli Anelli!! <span class="new-badge">NEW!</span></div>
+    <div class="body">
+      <table><tr><td>
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='100'%3E%3Cdefs%3E%3CradialGradient id='s' cx='.35' cy='.35'%3E%3Cstop offset='0' stop-color='%23e8c860'/%3E%3Cstop offset='1' stop-color='%23a08030'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cellipse cx='70' cy='50' rx='60' ry='12' fill='none' stroke='%23d4b060' stroke-width='6' opacity='.5'/%3E%3Cellipse cx='70' cy='50' rx='52' ry='9' fill='none' stroke='%23c8a848' stroke-width='4' opacity='.4'/%3E%3Ccircle cx='70' cy='50' r='30' fill='url(%23s)'/%3E%3Cellipse cx='70' cy='50' rx='60' ry='12' fill='none' stroke='%23d4b060' stroke-width='3' opacity='.3' clip-path='inset(0 0 50%25 0)'/%3E%3C/svg%3E" alt="Saturno" class="img-2008" style="float:right;margin-left:8px" />
+      </td><td>
+        <span style="color:#cccccc">L'eleganza degli anelli. Miliardi di frammenti di ghiaccio in danza gravitazionale. Il mio pianeta preferito!! <span style="color:#ff0">&hearts;&hearts;&hearts;</span></span>
+        <br /><br />
+        <table>
+          <tr><td class="label">Diametro:</td><td class="val">116.460 km</td></tr>
+          <tr><td class="label">Distanza dal Sole:</td><td class="val">1.434 Mld km</td></tr>
+          <tr><td class="label">Temperatura:</td><td class="val">-140&deg;C</td></tr>
+          <tr><td class="label">Lune:</td><td class="val" style="color:#ffff00">146 !!!</td></tr>
+        </table>
+      </td></tr></table>
+    </div>
+  </div>
+
+  <div class="star-sep">&#10022; &#10022; &#10022; &#10022; &#10022; &#10022; &#10022;</div>
+
+  <!-- ===== URANO ===== -->
+  <a name="urano"></a>
+  <div class="planet-box">
+    <div class="title-bar">&#9788; URANO - Il Pianeta Inclinato</div>
+    <div class="body">
+      <table><tr><td>
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cdefs%3E%3CradialGradient id='u' cx='.35' cy='.35'%3E%3Cstop offset='0' stop-color='%2380d8dd'/%3E%3Cstop offset='1' stop-color='%23408888'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='38' fill='url(%23u)'/%3E%3C/svg%3E" alt="Urano" class="img-2008" style="float:left;margin-right:8px" />
+      </td><td>
+        <span style="color:#cccccc">Il gigante di ghiaccio inclinato su un fianco, che rotola lungo la sua orbita. Troppo strano!! XD</span>
+        <br /><br />
+        <table>
+          <tr><td class="label">Diametro:</td><td class="val">50.724 km</td></tr>
+          <tr><td class="label">Distanza dal Sole:</td><td class="val">2.871 Mld km</td></tr>
+          <tr><td class="label">Temperatura:</td><td class="val">-195&deg;C</td></tr>
+          <tr><td class="label">Lune:</td><td class="val">28</td></tr>
+        </table>
+      </td></tr></table>
+    </div>
+  </div>
+
+  <div class="star-sep">* . * . * . * . * . * . *</div>
+
+  <!-- ===== NETTUNO ===== -->
+  <a name="nettuno"></a>
+  <div class="planet-box">
+    <div class="title-bar">&#9788; NETTUNO - L'Ultimo Avamposto</div>
+    <div class="body">
+      <table><tr><td>
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cdefs%3E%3CradialGradient id='n' cx='.35' cy='.35'%3E%3Cstop offset='0' stop-color='%234455cc'/%3E%3Cstop offset='1' stop-color='%23112266'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='38' fill='url(%23n)'/%3E%3Cellipse cx='40' cy='48' rx='8' ry='5' fill='%23223388' opacity='.5'/%3E%3C/svg%3E" alt="Nettuno" class="img-2008" style="float:right;margin-left:8px" />
+      </td><td>
+        <span style="color:#cccccc">L'ultimo avamposto conosciuto. Venti supersonici spazzano la sua atmosfera blu. Lontanissimo!! E oltre... <b style="color:#6666ff">l'infinito...</b></span>
+        <br /><br />
+        <table>
+          <tr><td class="label">Diametro:</td><td class="val">49.244 km</td></tr>
+          <tr><td class="label">Distanza dal Sole:</td><td class="val">4.495 Mld km</td></tr>
+          <tr><td class="label">Temperatura:</td><td class="val">-200&deg;C !!!</td></tr>
+          <tr><td class="label">Lune:</td><td class="val">16</td></tr>
+        </table>
+      </td></tr></table>
+    </div>
+  </div>
+
+  <hr class="fancy" />
+  <br />
+
+  <!-- ===== CURIOSITA' BOX ===== -->
+  <center><b style="color:#ffff00;font-size:13px">&#9733; CURIOSIT&Agrave; SPAZIALI &#9733;</b></center>
+  <br />
+  <div class="scrollbox">
+    &#8226; Lo sapevi che il Sole contiene il 99.86% di tutta la massa del Sistema Solare??<br /><br />
+    &#8226; Un giorno su Venere dura pi&ugrave; di un anno su Venere!! Assurdo!! :-O<br /><br />
+    &#8226; La Grande Macchia Rossa di Giove &egrave; una tempesta che dura da almeno 350 anni!!<br /><br />
+    &#8226; Saturno &egrave; cos&igrave; leggero che galleggerebbe nell'acqua (se trovassimo una vasca abbastanza grande LOL)<br /><br />
+    &#8226; La luce del Sole impiega circa 8 minuti per raggiungere la Terra<br /><br />
+    &#8226; Nettuno ha i venti pi&ugrave; veloci del Sistema Solare: oltre 2000 km/h!!!<br /><br />
+    &#8226; L'universo ha circa 13.8 MILIARDI di anni!! O_O
+  </div>
+
+  <hr class="fancy" />
+
+  <!-- Guestbook CTA -->
+  <center>
+    <br />
+    <span style="font-size:13px;color:#ff66ff">
+      <b>Ti &egrave; piaciuto il sito?? Firma il mio <a href="#">GUESTBOOK</a>!! :-D</b>
+    </span>
+    <br />
+    <span style="font-size:9px;color:#666699">
+      (accetto anche critiche costruttive!!)
+    </span>
+    <br /><br />
+    <!-- Mini form 2008 style -->
+    <table style="border:2px ridge #3333cc;background:#000033;padding:8px" cellpadding="6">
+      <tr>
+        <td style="color:#99ccff;font-size:10px">Il tuo nome:</td>
+        <td><input type="text" style="background:#111;color:#0f0;border:1px inset #333;font-family:monospace;font-size:10px;padding:2px;width:150px" value="" /></td>
+      </tr>
+      <tr>
+        <td style="color:#99ccff;font-size:10px">Messaggio:</td>
+        <td><textarea style="background:#111;color:#0f0;border:1px inset #333;font-family:monospace;font-size:10px;padding:2px;width:150px;height:40px"></textarea></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align:center">
+          <input type="button" value="INVIA!!" style="background:linear-gradient(#336,#113);color:#ff0;border:2px outset #336;font-family:'Comic Sans MS';font-size:10px;font-weight:bold;padding:3px 12px;cursor:pointer" />
+        </td>
+      </tr>
+    </table>
+    <br />
+  </center>
+
+</td>
+</tr>
+
+<!-- FOOTER -->
+<tr>
+  <td colspan="2" class="footer-cell">
+    <hr class="fancy" />
+    <span class="twinkle" style="color:#ffff00;font-size:10px">&#10022;</span>
+    &copy; 2008 ThE CoSmOs - Tutti i diritti riservati - WebMaster: <a href="mailto:cosmicboy@libero.it">CosmicBoy2008</a>
+    <span class="twinkle" style="color:#ffff00;font-size:10px">&#10022;</span>
+    <br />
+    <span style="font-size:8px">
+      Le immagini dei pianeti sono state prese da Internet. Se violano qualche copyright contattatemi e le rimuover&ograve; subito!!
+      <br />
+      Sito creato con Microsoft FrontPage 2003 &amp; un po' di Notepad ;-)
+    </span>
+  </td>
+</tr>
+
+</table>
+
+<!-- Fake IE status bar -->
+<div class="status-bar">
+  <span>&#9679; Operazione completata</span>
+  <span>Internet | Protezione attivata</span>
+</div>
+
+<!-- ===== SPARKLE CURSOR TRAIL (2008 classic!!) ===== -->
+<script type="text/javascript">
+// Classic 2008 sparkle cursor trail effect
+(function(){
+  var chars = ['\u2726','\u2727','\u2729','\u2605','\u2606'];
+  var colors = ['#ffff00','#ff66ff','#00ccff','#ff6600','#00ff00'];
+  document.addEventListener('mousemove', function(e){
+    if(Math.random() > 0.7) return; // throttle
+    var span = document.createElement('span');
+    span.className = 'sparkle';
+    span.textContent = chars[Math.floor(Math.random()*chars.length)];
+    span.style.left = (e.pageX + (Math.random()-0.5)*20) + 'px';
+    span.style.top = (e.pageY + (Math.random()-0.5)*20) + 'px';
+    span.style.color = colors[Math.floor(Math.random()*colors.length)];
+    document.body.appendChild(span);
+    setTimeout(function(){ span.remove(); }, 800);
+  });
+})();
+</script>
+
+</body>
+</html>

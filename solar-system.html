@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>The Cosmos — Solar System Journey</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#07080f;--cyan:#22d3ee;--gold:#facc15;--nebula:#7c3aed}
+html{scroll-behavior:auto}
+body{background:var(--bg);color:#fff;font-family:Georgia,'Times New Roman',serif;overflow-x:hidden}
+@media(pointer:fine){*{cursor:none!important}}
+
+/* Canvas */
+#canvas-container{position:fixed;inset:0;z-index:1}
+canvas{display:block;width:100%!important;height:100%!important}
+
+/* Scroll spacer */
+.scroll-spacer{position:relative;z-index:0}
+
+/* UI overlay */
+#ui{position:fixed;inset:0;z-index:10;pointer-events:none}
+
+/* Planet panel */
+.planet-panel{
+  position:absolute;bottom:8%;left:6%;max-width:520px;
+  opacity:0;transform:translateY(40px);
+  transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);
+  pointer-events:auto;
+}
+.planet-panel.active{opacity:1;transform:translateY(0)}
+.planet-panel .eyebrow{
+  font-family:'Courier New',monospace;font-size:.65rem;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--cyan);opacity:.7;margin-bottom:.75rem;
+}
+.planet-panel h2{
+  font-size:clamp(2.2rem,5vw,4.5rem);line-height:.92;margin-bottom:.5rem;
+  background:linear-gradient(135deg,#fff 60%,var(--cyan));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.planet-panel .subtitle{font-size:clamp(.85rem,1.5vw,1.1rem);color:rgba(255,255,255,.5);margin-bottom:1.5rem;font-style:italic}
+.planet-panel .data-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:.75rem 1.5rem;margin-bottom:1.25rem;
+}
+.data-item .label{
+  font-family:'Courier New',monospace;font-size:.6rem;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.15rem;
+}
+.data-item .value{
+  font-family:'Courier New',monospace;font-size:clamp(1rem,2vw,1.5rem);
+  font-weight:700;color:var(--cyan);
+}
+.planet-panel .desc{font-size:clamp(.8rem,1.2vw,1rem);line-height:1.7;color:rgba(255,255,255,.55);max-width:420px}
+
+/* Progress bar */
+#progress{
+  position:fixed;right:2rem;top:50%;transform:translateY(-50%);z-index:20;
+  display:flex;flex-direction:column;align-items:center;gap:0;
+}
+#progress .track{width:2px;height:40vh;background:rgba(255,255,255,.08);border-radius:1px;position:relative;overflow:hidden}
+#progress .fill{position:absolute;top:0;left:0;width:100%;height:0%;background:linear-gradient(180deg,var(--cyan),var(--nebula));border-radius:1px;transition:height .3s}
+#progress .planet-dot{
+  width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.15);
+  transition:background .3s,transform .3s;margin:3px 0;
+}
+#progress .planet-dot.active{background:var(--cyan);transform:scale(1.6);box-shadow:0 0 8px var(--cyan)}
+#progress .planet-dot:first-child{margin-top:8px}
+
+/* Title screen */
+#title-screen{
+  position:fixed;inset:0;z-index:15;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;pointer-events:none;
+  opacity:1;transition:opacity 1s;
+}
+#title-screen.hidden{opacity:0}
+#title-screen h1{
+  font-size:clamp(3rem,12vw,10rem);line-height:.88;letter-spacing:-.02em;text-align:center;
+  text-shadow:0 0 60px rgba(34,211,238,.2);
+}
+#title-screen h1 span{color:var(--cyan)}
+#title-screen .scroll-hint{
+  position:absolute;bottom:8%;font-family:'Courier New',monospace;
+  font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.3);
+}
+#title-screen .scroll-hint .arrow{display:block;text-align:center;margin-top:.5rem;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* Outro */
+#outro{
+  position:fixed;inset:0;z-index:15;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;pointer-events:none;
+  opacity:0;transition:opacity 1.2s;
+}
+#outro.visible{opacity:1}
+#outro h2{font-size:clamp(2rem,6vw,5rem);text-align:center;line-height:1}
+#outro p{font-size:clamp(.8rem,1.5vw,1.1rem);color:rgba(255,255,255,.4);margin-top:1rem;font-style:italic}
+
+/* Cursor */
+.cursor-ring{
+  position:fixed;top:0;left:0;width:24px;height:24px;border:1px solid rgba(34,211,238,.4);
+  border-radius:50%;pointer-events:none;z-index:100;
+  transition:width .3s,height .3s,border-color .3s,background .3s;
+  transform:translate(-50%,-50%);
+}
+.cursor-ring.hover{width:48px;height:48px;border-color:rgba(124,58,237,.6);background:rgba(124,58,237,.1)}
+.cursor-dot{
+  position:fixed;top:0;left:0;width:5px;height:5px;background:rgba(34,211,238,.8);
+  border-radius:50%;pointer-events:none;z-index:101;transform:translate(-50%,-50%);
+}
+
+/* Grain overlay */
+.grain{
+  position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.22;mix-blend-mode:soft-light;
+}
+.grain::after{
+  content:'';position:absolute;inset:-50%;width:200%;height:200%;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  background-size:256px;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .planet-panel{left:5%;right:5%;bottom:5%;max-width:none}
+  #progress{right:1rem}
+  #progress .track{height:25vh}
+}
+::selection{background:rgba(124,58,237,.4)}
+</style>
+</head>
+<body>
+<div id="canvas-container"></div>
+<div class="scroll-spacer" id="scroll-spacer"></div>
+<div id="ui"></div>
+
+<div id="title-screen">
+  <h1>THE <span>COSMOS</span></h1>
+  <div class="scroll-hint">Scroll per iniziare il viaggio<span class="arrow">&#8595;</span></div>
+</div>
+<div id="outro"><h2>E oltre&hellip;<br>l&rsquo;infinito</h2><p>Il viaggio non finisce mai</p></div>
+
+<div id="progress"><div class="track"><div class="fill" id="progress-fill"></div></div></div>
+
+<div class="cursor-ring" id="cursor-ring"></div>
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+/* ═══════════════════════════════════════════════════════
+   PLANET DATA
+   ═══════════════════════════════════════════════════════ */
+const PLANETS = [
+  { name:'Mercurio', radius:.6, pos:[-2,0,-30], rotSpeed:.008, axialTilt:0.03,
+    colors:['0.45,0.43,0.42','0.3,0.28,0.27'], shaderType:'rocky', noiseScale:4.0,
+    atmoColor:[.6,.6,.65], atmoIntensity:.3,
+    data:{diameter:'4.879',distance:'57,9M',temp:'167°C',moons:'0'},
+    desc:'Il messaggero degli dei, il pianeta più vicino al Sole e il più piccolo del sistema solare.' },
+  { name:'Venere', radius:.9, pos:[3,.5,-65], rotSpeed:.003, axialTilt:2.64,
+    colors:['0.85,0.7,0.3','0.75,0.55,0.2'], shaderType:'venus', noiseScale:2.5,
+    atmoColor:[.9,.75,.3], atmoIntensity:.5,
+    data:{diameter:'12.104',distance:'108,2M',temp:'464°C',moons:'0'},
+    desc:'La stella del mattino, avvolta in nubi di acido solforico. Il pianeta più caldo del sistema solare.' },
+  { name:'Terra', radius:1.0, pos:[-3.5,-.3,-100], rotSpeed:.006, axialTilt:.41,
+    colors:['0.05,0.2,0.6','0.15,0.5,0.15'], shaderType:'earth', noiseScale:2.5,
+    atmoColor:[.3,.5,1], atmoIntensity:.6,
+    data:{diameter:'12.742',distance:'149,6M',temp:'15°C',moons:'1'},
+    desc:"L'unico mondo conosciuto che ospita la vita. Un'oasi blu nel vuoto cosmico." },
+  { name:'Marte', radius:.75, pos:[2.5,.8,-135], rotSpeed:.006, axialTilt:.44,
+    colors:['0.7,0.25,0.1','0.55,0.18,0.08'], shaderType:'rocky', noiseScale:3.5,
+    atmoColor:[.8,.4,.2], atmoIntensity:.25,
+    data:{diameter:'6.779',distance:'227,9M',temp:'-65°C',moons:'2'},
+    desc:'Il pianeta rosso, la prossima frontiera dell\'esplorazione umana nello spazio.' },
+  { name:'Giove', radius:2.5, pos:[-4.5,-.5,-180], rotSpeed:.012, axialTilt:.05,
+    colors:['0.8,0.6,0.35','0.55,0.35,0.15'], shaderType:'banded', noiseScale:2.0, bandFreq:28.0,
+    atmoColor:[.8,.6,.3], atmoIntensity:.5, hasSpot:true,
+    data:{diameter:'139.820',distance:'778,5M',temp:'-110°C',moons:'95'},
+    desc:'Il gigante gassoso, più massiccio di tutti gli altri pianeti messi insieme.' },
+  { name:'Saturno', radius:2.1, pos:[5,0,-230], rotSpeed:.01, axialTilt:.47, hasRings:true,
+    colors:['0.85,0.75,0.45','0.7,0.6,0.3'], shaderType:'banded', noiseScale:3.0, bandFreq:18.0,
+    atmoColor:[.85,.75,.45], atmoIntensity:.45,
+    data:{diameter:'116.460',distance:'1,434 Mld',temp:'-140°C',moons:'146'},
+    desc:'L\'eleganza degli anelli. Miliardi di frammenti di ghiaccio in danza gravitazionale.' },
+  { name:'Urano', radius:1.4, pos:[-4,.6,-280], rotSpeed:.007, axialTilt:1.71,
+    colors:['0.5,0.82,0.85','0.35,0.7,0.75'], shaderType:'ice', noiseScale:2.0,
+    atmoColor:[.5,.8,.85], atmoIntensity:.45,
+    data:{diameter:'50.724',distance:'2,871 Mld',temp:'-195°C',moons:'28'},
+    desc:'Il gigante di ghiaccio inclinato su un fianco, che rotola lungo la sua orbita.' },
+  { name:'Nettuno', radius:1.35, pos:[3.5,-.4,-330], rotSpeed:.006, axialTilt:.49,
+    colors:['0.1,0.18,0.65','0.2,0.3,0.85'], shaderType:'ice', noiseScale:2.8,
+    atmoColor:[.2,.3,.9], atmoIntensity:.5,
+    data:{diameter:'49.244',distance:'4,495 Mld',temp:'-200°C',moons:'16'},
+    desc:'L\'ultimo avamposto conosciuto. Venti supersonici spazzano la sua atmosfera blu.' },
+];
+
+/* ═══════════════════════════════════════════════════════
+   GLSL SHARED CODE
+   ═══════════════════════════════════════════════════════ */
+const NOISE_GLSL = `
+float hash(float n){return fract(sin(n)*43758.5453);}
+float noise(vec3 x){
+  vec3 p=floor(x);vec3 f=fract(x);f=f*f*(3.0-2.0*f);
+  float n=p.x+p.y*57.0+113.0*p.z;
+  return mix(mix(mix(hash(n),hash(n+1.0),f.x),mix(hash(n+57.0),hash(n+58.0),f.x),f.y),
+             mix(mix(hash(n+113.0),hash(n+114.0),f.x),mix(hash(n+170.0),hash(n+171.0),f.x),f.y),f.z);
+}
+float fbm(vec3 p){float f=0.0;f+=.5*noise(p);p*=2.01;f+=.25*noise(p);p*=2.02;f+=.125*noise(p);p*=2.03;f+=.0625*noise(p);return f/.9375;}
+`;
+
+const VERT = `
+varying vec2 vUv;varying vec3 vNormal;varying vec3 vPosition;
+void main(){
+  vUv=uv;vNormal=normalize(normalMatrix*normal);vPosition=position;
+  gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);
+}`;
+
+const ATMO_VERT = `
+varying vec3 vNormal;
+void main(){vNormal=normalize(normalMatrix*normal);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}
+`;
+const ATMO_FRAG = `
+uniform vec3 uColor;uniform float uIntensity;varying vec3 vNormal;
+void main(){float i=pow(0.62-dot(vNormal,vec3(0,0,1)),2.5);gl_FragColor=vec4(uColor,i*uIntensity);}
+`;
+
+function planetFrag(p) {
+  const base = `
+uniform float uTime;uniform vec3 uColor1;uniform vec3 uColor2;
+varying vec2 vUv;varying vec3 vNormal;varying vec3 vPosition;
+${NOISE_GLSL}
+void main(){
+  vec3 lDir=normalize(vec3(1.0,0.4,0.6));
+  float light=max(dot(vNormal,lDir),0.0);
+  float ambient=0.12;
+  vec3 p=vPosition*${p.noiseScale.toFixed(1)};
+  float n=fbm(p);
+  vec3 col;
+`;
+  let body = '';
+  switch(p.shaderType){
+    case 'rocky':
+      body = `col=mix(uColor1,uColor2,n);col*=0.8+0.2*noise(p*6.0);`;
+      break;
+    case 'venus':
+      body = `p+=vec3(0,uTime*0.04,0);n=fbm(p);col=mix(uColor1,uColor2,n);
+      float sw=noise(p*3.0+vec3(uTime*0.02,0,0));col=mix(col,uColor1*1.15,sw*0.25);`;
+      break;
+    case 'earth':
+      body = `float cont=smoothstep(0.42,0.56,n);
+      vec3 ocean=uColor1;vec3 land=mix(uColor2,vec3(0.55,0.4,0.2),noise(p*5.0));
+      col=mix(ocean,land,cont);
+      float clouds=smoothstep(0.48,0.68,fbm(vPosition*3.0+vec3(uTime*0.025,0,0)));
+      col=mix(col,vec3(0.95),clouds*0.55);`;
+      break;
+    case 'banded':
+      body = `float band=sin(vUv.y*${(p.bandFreq||20).toFixed(1)}+noise(p)*2.0)*0.5+0.5;
+      col=mix(uColor1,uColor2,band);col+=noise(p*4.0)*0.06;`;
+      if(p.hasSpot) body += `
+      float sd=length(vUv-vec2(0.35,0.55));col=mix(col,vec3(0.8,0.2,0.1),0.65*(1.0-smoothstep(0.025,0.055,sd)));`;
+      break;
+    case 'ice':
+      body = `p+=vec3(0,uTime*0.015,0);n=fbm(p);col=mix(uColor1,uColor2,n);`;
+      break;
+  }
+  return base + body + `
+  gl_FragColor=vec4(col*(ambient+(1.0-ambient)*light),1.0);
+}`;
+}
+
+/* ═══════════════════════════════════════════════════════
+   THREE.JS SCENE SETUP
+   ═══════════════════════════════════════════════════════ */
+const container = document.getElementById('canvas-container');
+const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:false });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.outputEncoding = THREE.sRGBEncoding;
+container.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x07080f, 0.003);
+scene.background = new THREE.Color(0x07080f);
+
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 0.1, 1000);
+camera.position.set(0, 0, 8);
+
+/* Lighting — Sun as warm point light */
+const sunLight = new THREE.PointLight(0xfff0dd, 2.0, 500);
+sunLight.position.set(20, 10, 20);
+scene.add(sunLight);
+scene.add(new THREE.AmbientLight(0x141428, 0.6));
+
+/* ═══════════════════════════════════════════════════════
+   STARFIELD
+   ═══════════════════════════════════════════════════════ */
+const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+const starCount = isMobile ? 3000 : 8000;
+const starGeo = new THREE.BufferGeometry();
+const starPos = new Float32Array(starCount * 3);
+for (let i = 0; i < starCount; i++) {
+  starPos[i*3]   = (Math.random()-.5)*200;
+  starPos[i*3+1] = (Math.random()-.5)*200;
+  starPos[i*3+2] = 30 + (Math.random()) * -400;
+}
+starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({
+  color:0xc8d8f8, size:.12, sizeAttenuation:true, transparent:true, opacity:.85, depthWrite:false
+}));
+scene.add(stars);
+
+/* ═══════════════════════════════════════════════════════
+   CREATE PLANETS
+   ═══════════════════════════════════════════════════════ */
+const planetMeshes = [];
+const clock = new THREE.Clock();
+
+function parseColor(s){ const v=s.split(',').map(Number); return new THREE.Color(v[0],v[1],v[2]); }
+
+PLANETS.forEach((p, i) => {
+  /* Main sphere */
+  const geo = new THREE.SphereGeometry(p.radius, 64, 64);
+  const mat = new THREE.ShaderMaterial({
+    uniforms: {
+      uTime: { value: 0 },
+      uColor1: { value: parseColor(p.colors[0]) },
+      uColor2: { value: parseColor(p.colors[1]) },
+    },
+    vertexShader: VERT,
+    fragmentShader: planetFrag(p),
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.set(p.pos[0], p.pos[1], p.pos[2]);
+  mesh.rotation.z = p.axialTilt || 0;
+  scene.add(mesh);
+
+  /* Atmosphere glow */
+  const atmoGeo = new THREE.SphereGeometry(p.radius * 1.15, 32, 32);
+  const atmoMat = new THREE.ShaderMaterial({
+    uniforms: {
+      uColor: { value: new THREE.Color(p.atmoColor[0], p.atmoColor[1], p.atmoColor[2]) },
+      uIntensity: { value: p.atmoIntensity || .4 },
+    },
+    vertexShader: ATMO_VERT,
+    fragmentShader: ATMO_FRAG,
+    transparent: true,
+    side: THREE.BackSide,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  });
+  const atmo = new THREE.Mesh(atmoGeo, atmoMat);
+  atmo.position.copy(mesh.position);
+  scene.add(atmo);
+
+  /* Saturn rings */
+  if (p.hasRings) {
+    const ringGeo = new THREE.RingGeometry(p.radius*1.4, p.radius*2.3, 128);
+    const ringMat = new THREE.ShaderMaterial({
+      vertexShader: `varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`,
+      fragmentShader: `
+        varying vec2 vUv;
+        void main(){
+          float r=length(vUv-0.5)*2.0;
+          float ring=smoothstep(0.0,0.04,sin(r*50.0)*0.5+0.3);
+          float a=ring*smoothstep(0.0,0.15,r)*smoothstep(1.0,0.65,r);
+          vec3 c=mix(vec3(0.75,0.65,0.4),vec3(0.9,0.85,0.6),r);
+          gl_FragColor=vec4(c,a*0.55);
+        }`,
+      transparent: true,
+      side: THREE.DoubleSide,
+      depthWrite: false,
+    });
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.position.copy(mesh.position);
+    ring.rotation.x = -Math.PI * 0.42;
+    ring.rotation.z = p.axialTilt || 0;
+    scene.add(ring);
+  }
+
+  planetMeshes.push({ mesh, atmo, mat, data: p });
+});
+
+/* ═══════════════════════════════════════════════════════
+   SCROLL SETUP
+   ═══════════════════════════════════════════════════════ */
+gsap.registerPlugin(ScrollTrigger);
+
+/* Total scroll: intro + 8 planets + outro = 10 sections × 110vh */
+const numSections = PLANETS.length + 2;
+const sectionHeight = 110;
+document.getElementById('scroll-spacer').style.height = (numSections * sectionHeight) + 'vh';
+
+/* Camera waypoints */
+const lookTarget = { x:0, y:0, z:-30 };
+const camTL = gsap.timeline();
+
+/* Intro dwell */
+camTL.to(camera.position, { x:0, y:0, z:8, duration:0.5 });
+
+PLANETS.forEach((p, i) => {
+  const cz = p.pos[2] + p.radius * 3.2;
+  const cx = p.pos[0] * 0.3;
+  const cy = p.pos[1] * 0.4;
+  /* Fly to planet */
+  camTL.to(camera.position, { x:cx, y:cy, z:cz, duration:1.5, ease:'power1.inOut' });
+  camTL.to(lookTarget, { x:p.pos[0], y:p.pos[1], z:p.pos[2], duration:1.5, ease:'power1.inOut' }, '<');
+  /* Dwell */
+  camTL.to({}, { duration:0.8 });
+});
+
+/* Outro — drift forward */
+camTL.to(camera.position, { z:-360, duration:1.5, ease:'power1.in' });
+camTL.to(lookTarget, { z:-380, duration:1.5, ease:'power1.in' }, '<');
+
+const mainST = ScrollTrigger.create({
+  animation: camTL,
+  trigger: '#scroll-spacer',
+  start: 'top top',
+  end: 'bottom bottom',
+  scrub: 1.5,
+  onUpdate: onScrollUpdate,
+});
+
+/* ═══════════════════════════════════════════════════════
+   UI — Generate planet panels + progress dots
+   ═══════════════════════════════════════════════════════ */
+const uiEl = document.getElementById('ui');
+const panels = [];
+
+PLANETS.forEach((p, i) => {
+  const div = document.createElement('div');
+  div.className = 'planet-panel';
+  div.id = 'panel-' + i;
+  div.innerHTML = `
+    <div class="eyebrow">${String(i+1).padStart(2,'0')} / ${String(PLANETS.length).padStart(2,'0')}</div>
+    <h2>${p.name}</h2>
+    <div class="subtitle">${p.desc}</div>
+    <div class="data-grid">
+      <div class="data-item"><div class="label">Diametro (km)</div><div class="value" data-target="${p.data.diameter}">${p.data.diameter}</div></div>
+      <div class="data-item"><div class="label">Distanza dal Sole</div><div class="value">${p.data.distance} km</div></div>
+      <div class="data-item"><div class="label">Temperatura</div><div class="value">${p.data.temp}</div></div>
+      <div class="data-item"><div class="label">Lune</div><div class="value" data-target="${p.data.moons}">${p.data.moons}</div></div>
+    </div>
+  `;
+  uiEl.appendChild(div);
+  panels.push(div);
+
+  /* Progress dot */
+  const dot = document.createElement('div');
+  dot.className = 'planet-dot';
+  dot.title = p.name;
+  document.getElementById('progress').appendChild(dot);
+});
+
+const progressFill = document.getElementById('progress-fill');
+const dots = document.querySelectorAll('.planet-dot');
+const titleScreen = document.getElementById('title-screen');
+const outroScreen = document.getElementById('outro');
+
+let activePanel = -1;
+
+function onScrollUpdate(self) {
+  const progress = self.progress;
+  progressFill.style.height = (progress * 100) + '%';
+
+  /* Determine active planet based on progress */
+  const totalDur = camTL.totalDuration();
+  const introFrac = 0.5 / totalDur;
+  const outroFrac = 1.5 / totalDur;
+  const planetZone = (1 - introFrac - outroFrac) / PLANETS.length;
+
+  let newActive = -1;
+  for (let i = 0; i < PLANETS.length; i++) {
+    const start = introFrac + i * planetZone + planetZone * 0.25;
+    const end = introFrac + (i + 1) * planetZone - planetZone * 0.1;
+    if (progress >= start && progress <= end) { newActive = i; break; }
+  }
+
+  /* Title screen */
+  if (progress < 0.04) titleScreen.classList.remove('hidden');
+  else titleScreen.classList.add('hidden');
+
+  /* Outro */
+  if (progress > 0.95) outroScreen.classList.add('visible');
+  else outroScreen.classList.remove('visible');
+
+  /* Panels */
+  if (newActive !== activePanel) {
+    if (activePanel >= 0) panels[activePanel].classList.remove('active');
+    if (newActive >= 0) panels[newActive].classList.add('active');
+    activePanel = newActive;
+  }
+
+  /* Dots */
+  dots.forEach((d, i) => {
+    const s = introFrac + i * planetZone;
+    d.classList.toggle('active', progress >= s && progress < s + planetZone);
+  });
+}
+
+/* ═══════════════════════════════════════════════════════
+   CUSTOM CURSOR (desktop only)
+   ═══════════════════════════════════════════════════════ */
+const cursorRing = document.getElementById('cursor-ring');
+const cursorDotEl = document.getElementById('cursor-dot');
+const mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
+const cursorPos = { x: mouse.x, y: mouse.y };
+
+if (!isMobile) {
+  window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  window.addEventListener('mouseover', e => {
+    const t = e.target;
+    const isLink = t.closest && t.closest('a,[data-cursor="link"],.planet-dot');
+    cursorRing.classList.toggle('hover', !!isLink);
+  });
+} else {
+  cursorRing.style.display = 'none';
+  cursorDotEl.style.display = 'none';
+}
+
+/* ═══════════════════════════════════════════════════════
+   HOVER — Raycaster for planet interaction
+   ═══════════════════════════════════════════════════════ */
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
+let hoveredPlanet = null;
+
+if (!isMobile) {
+  window.addEventListener('mousemove', e => {
+    pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
+    pointer.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  });
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESIZE
+   ═══════════════════════════════════════════════════════ */
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+/* ═══════════════════════════════════════════════════════
+   RENDER LOOP
+   ═══════════════════════════════════════════════════════ */
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+  const dt = clock.getDelta();
+
+  /* Update planet rotations + shader time */
+  planetMeshes.forEach(({ mesh, mat, data }) => {
+    mesh.rotation.y += data.rotSpeed;
+    mat.uniforms.uTime.value = t;
+  });
+
+  /* Starfield subtle drift */
+  stars.rotation.y = t * 0.002;
+  stars.rotation.x = Math.sin(t * 0.003) * 0.01;
+
+  /* Camera look at target */
+  camera.lookAt(lookTarget.x, lookTarget.y, lookTarget.z);
+
+  /* Cursor lerp */
+  if (!isMobile) {
+    cursorPos.x += (mouse.x - cursorPos.x) * 0.12;
+    cursorPos.y += (mouse.y - cursorPos.y) * 0.12;
+    cursorRing.style.transform = `translate3d(${cursorPos.x}px,${cursorPos.y}px,0) translate(-50%,-50%)`;
+    cursorDotEl.style.transform = `translate3d(${mouse.x}px,${mouse.y}px,0) translate(-50%,-50%)`;
+  }
+
+  /* Raycaster hover */
+  if (!isMobile) {
+    raycaster.setFromCamera(pointer, camera);
+    const hits = raycaster.intersectObjects(planetMeshes.map(p => p.mesh));
+    if (hits.length > 0) {
+      if (hoveredPlanet !== hits[0].object) {
+        hoveredPlanet = hits[0].object;
+        cursorRing.classList.add('hover');
+      }
+    } else {
+      hoveredPlanet = null;
+    }
+  }
+
+  renderer.render(scene, camera);
+}
+animate();
+</script>
+</body>
+</html>
